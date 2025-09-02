@@ -44,7 +44,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
         
         toast({
           title: "Connexion réussie",
-          description: `Bienvenue ${formData.username} ! Redirection vers votre espace client...`,
+          description: `Bienvenue dans votre espace client sécurisé.`,
         });
         
         // Close modal and redirect to dashboard
@@ -56,13 +56,13 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
         // Invalid credentials
         setError("Nom d'utilisateur ou mot de passe incorrect. Veuillez réessayer.");
         toast({
-          title: "Erreur de connexion",
-          description: "Identifiants incorrects. Vérifiez vos informations.",
+          title: "Accès refusé",
+          description: "Identifiants invalides. Contactez votre conseiller si nécessaire.",
           variant: "destructive"
         });
       }
       setIsLoading(false);
-    }, 1500);
+    }, 2000);
   };
 
   const handleClose = () => {
@@ -80,10 +80,10 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
             <Shield className="w-8 h-8 text-white" />
           </div>
           <DialogTitle className="text-2xl font-semibold text-gray-900">
-            Online Banking
+            Espace Client Sécurisé
           </DialogTitle>
           <p className="text-gray-600 mt-2">
-            Connectez-vous à votre espace client sécurisé
+            Accédez à vos comptes BNP Paribas
           </p>
         </DialogHeader>
 
@@ -94,7 +94,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
               <div className="flex items-start space-x-3">
                 <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
                 <div className="text-sm text-red-800">
-                  <p className="font-medium mb-1">Erreur de connexion</p>
+                  <p className="font-medium mb-1">Erreur d'authentification</p>
                   <p>{error}</p>
                 </div>
               </div>
@@ -104,7 +104,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
           {/* Username field */}
           <div className="space-y-2">
             <Label htmlFor="username" className="text-sm font-medium text-gray-700">
-              Nom d'utilisateur
+              Identifiant client
             </Label>
             <div className="relative">
               <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -112,7 +112,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
                 id="username"
                 name="username"
                 type="text"
-                placeholder="Saisissez votre nom d'utilisateur"
+                placeholder="Saisissez votre identifiant"
                 value={formData.username}
                 onChange={handleInputChange}
                 className={`pl-10 h-12 border-gray-300 focus:border-green-600 focus:ring-green-600 ${
@@ -126,7 +126,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
           {/* Password field */}
           <div className="space-y-2">
             <Label htmlFor="password" className="text-sm font-medium text-gray-700">
-              Mot de passe
+              Code confidentiel
             </Label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -134,7 +134,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
                 id="password"
                 name="password"
                 type={showPassword ? "text" : "password"}
-                placeholder="Saisissez votre mot de passe"
+                placeholder="Saisissez votre code confidentiel"
                 value={formData.password}
                 onChange={handleInputChange}
                 className={`pl-10 pr-12 h-12 border-gray-300 focus:border-green-600 focus:ring-green-600 ${
@@ -163,13 +163,13 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
                 type="checkbox"
                 className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-600"
               />
-              <span className="text-sm text-gray-600">Se souvenir de moi</span>
+              <span className="text-sm text-gray-600">Mémoriser cet appareil</span>
             </label>
             <a
               href="#"
               className="text-sm text-green-600 hover:text-green-700 transition-colors"
             >
-              Mot de passe oublié ?
+              Identifiants oubliés ?
             </a>
           </div>
 
@@ -182,37 +182,22 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
             {isLoading ? (
               <div className="flex items-center space-x-2">
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                <span>Connexion en cours...</span>
+                <span>Authentification en cours...</span>
               </div>
             ) : (
-              "Se connecter"
+              "Accéder à mon espace"
             )}
           </Button>
-
-          {/* Demo credentials hint */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <div className="flex items-start space-x-3">
-              <Shield className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-              <div className="text-sm text-blue-800">
-                <p className="font-medium mb-1">Démonstration</p>
-                <p className="mb-2">Utilisez ces identifiants pour tester :</p>
-                <div className="bg-blue-100 rounded p-2 font-mono text-xs">
-                  <div>👤 Utilisateur : <strong>Monicka127</strong></div>
-                  <div>🔐 Mot de passe : <strong>1447mOnicka</strong></div>
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* Security notice */}
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
             <div className="flex items-start space-x-3">
               <Shield className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
               <div className="text-sm text-green-800">
-                <p className="font-medium mb-1">Connexion sécurisée</p>
+                <p className="font-medium mb-1">Sécurité renforcée</p>
                 <p>
-                  Vos données sont protégées par un cryptage de niveau bancaire. 
-                  Ne partagez jamais vos identifiants de connexion.
+                  Vos données sont protégées par un cryptage bancaire de niveau militaire. 
+                  Votre session sera automatiquement fermée après 15 minutes d'inactivité.
                 </p>
               </div>
             </div>
@@ -220,14 +205,14 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
 
           {/* Help links */}
           <div className="text-center space-y-2 pt-4 border-t border-gray-200">
-            <p className="text-sm text-gray-600">Besoin d'aide ?</p>
+            <p className="text-sm text-gray-600">Besoin d'assistance ?</p>
             <div className="flex justify-center space-x-4 text-sm">
               <a href="#" className="text-green-600 hover:text-green-700 transition-colors">
-                Support technique
+                Support technique 24/7
               </a>
               <span className="text-gray-300">|</span>
               <a href="#" className="text-green-600 hover:text-green-700 transition-colors">
-                Première connexion
+                Contacter mon conseiller
               </a>
             </div>
           </div>
