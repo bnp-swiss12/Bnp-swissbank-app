@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Search, ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
+import LoginModal from "./LoginModal";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
+  const [showOnlineBankingMenu, setShowOnlineBankingMenu] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const navigationItems = [
     "À PROPOS",
@@ -15,6 +18,11 @@ const Header = () => {
     "ACTUALITÉS",
     "CONTACT"
   ];
+
+  const handleOnlineBankingClick = () => {
+    setIsLoginModalOpen(true);
+    setShowOnlineBankingMenu(false);
+  };
 
   return (
     <>
@@ -51,18 +59,50 @@ const Header = () => {
             <a href="#" className="text-gray-600 hover:text-green-600 transition-colors">
               GROUPE BNP PARIBAS
             </a>
-            <div className="relative">
-              <button className="text-gray-600 hover:text-green-600 transition-colors flex items-center space-x-1">
+            <div className="relative" id="nav-banking">
+              <button 
+                onClick={() => setShowOnlineBankingMenu(!showOnlineBankingMenu)}
+                className="text-gray-600 hover:text-green-600 transition-colors flex items-center space-x-1"
+              >
                 <span>ONLINE BANKING</span>
                 <ChevronDown className="w-4 h-4" />
               </button>
+              {showOnlineBankingMenu && (
+                <div className="absolute top-full right-0 mt-2 bg-white border border-gray-200 rounded-md shadow-lg py-2 min-w-[200px] z-50">
+                  <button 
+                    onClick={handleOnlineBankingClick}
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors"
+                  >
+                    🔐 Particuliers
+                  </button>
+                  <button 
+                    onClick={handleOnlineBankingClick}
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors"
+                  >
+                    🏢 Entreprises
+                  </button>
+                  <button 
+                    onClick={handleOnlineBankingClick}
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors"
+                  >
+                    💼 Wealth Management
+                  </button>
+                  <div className="border-t border-gray-200 my-2"></div>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-500 hover:text-green-600 transition-colors">
+                    📱 App mobile
+                  </a>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-500 hover:text-green-600 transition-colors">
+                    ❓ Aide connexion
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
       {/* Main header */}
-      <header className="bg-white shadow-sm relative z-50">
+      <header className="bg-white shadow-sm relative z-40">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between py-4">
             {/* Logo */}
@@ -103,7 +143,7 @@ const Header = () => {
                   <ChevronDown className="w-4 h-4" />
                 </button>
                 {showLanguageMenu && (
-                  <div className="absolute top-full right-0 mt-2 bg-white border border-gray-200 rounded-md shadow-lg py-2 min-w-[100px]">
+                  <div className="absolute top-full right-0 mt-2 bg-white border border-gray-200 rounded-md shadow-lg py-2 min-w-[100px] z-50">
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">FR</a>
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">EN</a>
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">DE</a>
@@ -112,7 +152,7 @@ const Header = () => {
               </div>
 
               {/* Search button */}
-              <Button variant="ghost" size="sm" className="hover:bg-green-50">
+              <Button variant="ghost" size="sm" className="hover:bg-green-50" id="search">
                 <Search className="w-5 h-5 text-green-600" />
               </Button>
 
@@ -141,11 +181,24 @@ const Header = () => {
                     {item}
                   </a>
                 ))}
+                <div className="border-t border-gray-200 my-2"></div>
+                <button 
+                  onClick={handleOnlineBankingClick}
+                  className="text-left text-green-600 hover:text-green-700 transition-colors duration-200 font-medium py-2"
+                >
+                  🔐 ONLINE BANKING
+                </button>
               </nav>
             </div>
           )}
         </div>
       </header>
+
+      {/* Login Modal */}
+      <LoginModal 
+        isOpen={isLoginModalOpen} 
+        onClose={() => setIsLoginModalOpen(false)} 
+      />
     </>
   );
 };
