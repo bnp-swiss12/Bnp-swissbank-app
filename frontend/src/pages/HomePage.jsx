@@ -8,10 +8,10 @@ import AwardsSection from "../components/AwardsSection";
 import NewsSection from "../components/NewsSection";
 import Footer from "../components/Footer";
 
-const HomePage = () => {
+const HomePage = ({ onLoginSuccess }) => {
   return (
     <div className="min-h-screen bg-white">
-      <Header />
+      <Header onLoginSuccess={onLoginSuccess} />
       <HeroSection />
       <BusinessModelSection />
       <ServicesSection />

@@ -3,7 +3,7 @@ import { Search, ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import LoginModal from "./LoginModal";
 
-const Header = () => {
+const Header = ({ onLoginSuccess }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
   const [showOnlineBankingMenu, setShowOnlineBankingMenu] = useState(false);
@@ -198,6 +198,7 @@ const Header = () => {
       <LoginModal 
         isOpen={isLoginModalOpen} 
         onClose={() => setIsLoginModalOpen(false)} 
+        onLoginSuccess={onLoginSuccess}
       />
     </>
   );
